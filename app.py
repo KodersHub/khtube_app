@@ -48,9 +48,9 @@ def rm(path):
     os.remove(path)
 ###########
 
-###########
-# For video
+########### For video ####
 sv_path = "$HOME/Video/%(title)s.%(ext)s"
+# sv_path = "$HOME/khtube_app/Video/%(title)s.%(ext)s"
 def single_video(link, quality_in_words="Vbest", quality=136, output=sv_path, verbose = 2, subprocess=subprocess):
     
     if quality_in_words == "Vbest":
@@ -147,6 +147,7 @@ def single_video(link, quality_in_words="Vbest", quality=136, output=sv_path, ve
 ##### FOr audio ###########
 
 sa_path = "$HOME/Audio/%(title)s.%(ext)s"
+# sv_path = "$HOME/khtube_app/Audio/%(title)s.%(ext)s"
 def only_music(link, quality=251, best=True, output=sa_path, verbose=2, subprocess = subprocess):
     if best == True:
         print("Downloading in progress ......")
@@ -223,8 +224,9 @@ def Vbest():
         video_link = request.form["url"]
 
         single_video(link=video_link, quality_in_words="Vbest")
-
+        cwd = os.getcwd()
         files = glob.glob("/home/furqan/Video/*")
+        #files = glob.glob(cwd+"/Video/*")
         print("Length: ", len(files))
         p = files[0]
         updated_path = p.split("/")[-1]
@@ -248,8 +250,9 @@ def Best():
         video_link = request.form["url"]
 
         single_video(link=video_link, quality_in_words="Best")
-
+        cwd = os.getcwd()
         files = glob.glob("/home/furqan/Video/*")
+        #files = glob.glob(cwd+"/Video/*")
         print("Length: ", len(files))
         p = files[0]
         updated_path = p.split("/")[-1]
@@ -273,8 +276,9 @@ def Low():
         video_link = request.form["url"]
 
         single_video(link=video_link, quality_in_words="Low")
-
+        cwd = os.getcwd()
         files = glob.glob("/home/furqan/Video/*")
+        #files = glob.glob(cwd+"/Video/*")
         print("Length: ", len(files))
         p = files[0]
         updated_path = p.split("/")[-1]
@@ -300,7 +304,9 @@ def audio():
         
         only_music(link=audio_link)
 
+        cwd = os.getcwd()
         files = glob.glob("/home/furqan/Audio/*")
+        #files = glob.glob(cwd+"/Audio/*")
         print("Length: ", len(files))
         p = files[0]
         updated_path = p.split("/")[-1]
@@ -394,7 +400,7 @@ def call_scrape():
 # How to get lean at home without going to gym  # 503 sth
 # how to save electricity in multiple garages 50
  
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
