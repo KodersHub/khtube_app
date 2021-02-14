@@ -8,10 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import requests
 import datetime
-
-# option = Options()
-# option.headless = True
-# driver = webdriver.Chrome("/home/furqan/Desktop/python_work/kodershub/youtube-webapp/chromedriver",options=option)
+import argparse
 
 
 def word_count(str,channel):
@@ -128,16 +125,18 @@ def getChannelDetails(urls,vid_count, driver):
     return avgviewslist, cnamelist, csubslist, cdesclist, cviewslist, urllist
 
 
-def scrape(text, driver):
+# def scrape(text, driver):
+def scrape(user_kw, driver):
     
     driver = driver
-    keyword = str.strip(text)
+    keyword = str.strip(user_kw)
     kw= keyword
     keyword = keyword.replace(" ","+")
 
     allChannelUrls,vid_count = getChannelUrls(keyword, driver = driver)
     avgviewslist, cnamelist, csubslist, cdesclist, cviewslist, urllist = getChannelDetails(allChannelUrls,vid_count, driver = driver)
-    
+    driver.close()
+
     for i,j in zip(cviewslist,vid_count):
         if j == 0:
             avgviewslist.append(0)
@@ -174,7 +173,21 @@ def scrape(text, driver):
     excel_writer.save()
     # file.to_csv(f"{keyword}_"+now.strftime("%Y%m%d%H%M%S")+".csv", index=False, header=True, encoding='utf-8')
     print("Data has been exported to an Excel file saved in the same directory")
-    # driver.close()
 
-# if __name__=="__main__":
-#     scrape("adas")
+if __name__=="__main__":
+    ### Edited code here for cmd line
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--user_kw', type=str, required=True)
+
+    option = Options()
+    option.headless = True
+    cwd = os.getcwd()
+    # driver = webdriver.Chrome(cwd+"/chromedriver",options=option)
+    driver = webdriver.Chrome(cwd+"/Youtube_flask/chromedriver",options=option)
+
+
+    args = parser.parse_args()
+
+    user_kw = args.user_kw
+    
+    scrape(user_kw, driver)
