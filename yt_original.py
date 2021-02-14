@@ -183,7 +183,7 @@ if __name__=="__main__":
     option.headless = True
     cwd = os.getcwd()
     # driver = webdriver.Chrome(cwd+"/chromedriver",options=option)
-    driver = webdriver.Chrome(cwd+"/Youtube_flask/chromedriver",options=option)
+    driver = webdriver.Chrome(cwd+"/chromedriver",options=option)
 
 
     args = parser.parse_args()

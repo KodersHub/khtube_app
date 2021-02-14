@@ -29,7 +29,7 @@ scr_process = ""
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if ppid != 0:
-        # print("ppid: ", ppid)
+        print("ppid: ", ppid)
         # os.kill(ppid, 0)
         scr_process.kill()
         # os.killpg(os.getpgid(ppid), signal.SIGTERM)
@@ -357,18 +357,19 @@ def call_scrape():
         
         # code changes here.
         cwd = os.getcwd()
+        print(cwd)
         global ppid
         global scr_process
-        proc = subprocess.Popen(f'exec python {cwd}/Youtube_flask/yt_original.py --user_kw="{user_kw}"', shell=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # proc = subprocess.Popen(f'exec python {cwd}/yt_original.py --user_kw="{user_kw}"', shell=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(f'exec python {cwd}/yt_original.py --user_kw="{user_kw}"', shell=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # proc = subprocess.Popen(f'exec python3 {cwd}/yt_original.py --user_kw="{user_kw}"', shell=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         ppid = proc.pid
         scr_process = proc
         proc.communicate()[0]
         proc.wait()
         #####
         
-        files = glob.glob("/home/furqan/Desktop/python_work/kodershub/*.xlsx")
-        # files = glob.glob(cwd+"/*.xlsx")
+        # files = glob.glob("/home/furqan/Desktop/python_work/kodershub/*.xlsx")
+        files = glob.glob(cwd+"/*.xlsx")
         print("Length: ", len(files))
         p = files[0]
         updated_path = p.split("/")[-1]
@@ -400,7 +401,7 @@ def call_scrape():
 # How to get lean at home without going to gym  # 503 sth
 # how to save electricity in multiple garages 50
  
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
 
 
